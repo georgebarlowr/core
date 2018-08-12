@@ -76,6 +76,13 @@ class Bid extends Model
         return $query->whereNull('completed_at');
     }
 
+    public function scopePassed($query)
+    {
+        return $query->whereHas('pirep', function ($q) {
+           $q->whereNull('failed_at');
+        });
+    }
+
     public function complete()
     {
         $this->completed_at = \Carbon\Carbon::now();

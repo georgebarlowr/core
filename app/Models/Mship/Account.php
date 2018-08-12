@@ -22,6 +22,7 @@ use App\Models\Mship\Note\Type;
 use App\Models\Mship\Permission as PermissionData;
 use App\Models\Mship\Role as RoleData;
 use App\Notifications\Mship\SlackInvitation;
+use App\Models\Smartcars\Flight;
 use Carbon\Carbon;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
@@ -114,6 +115,7 @@ use Watson\Rememberable\Rememberable;
  * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Passport\Client[] $oAuthClients
  * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Passport\Token[] $oAuthTokens
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Smartcars\Pirep[] $pireps
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Smartcars\Flight[] $flights
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Mship\Qualification[] $qualifications
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Sys\Notification[] $readSystemNotifications
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Mship\Role[] $roles
@@ -302,6 +304,16 @@ class Account extends Model implements AuthenticatableContract, AuthorizableCont
     public function pireps()
     {
         return $this->hasManyThrough(\App\Models\Smartcars\Pirep::class, \App\Models\Smartcars\Bid::class, 'account_id', 'bid_id', 'id');
+    }
+
+    public function bids()
+    {
+        return $this->hasMany(\App\Models\Smartcars\Bid::class);
+    }
+
+    public function hasPassedExercise(Flight $flight)
+    {
+        return $this->bids()->passed()->get()->pluck('flight_id')->contains($flight->id);
     }
 
     /**

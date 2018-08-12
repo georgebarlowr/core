@@ -15,7 +15,7 @@ class SmartcarsController extends BaseController
         $exercises = Flight::featured()->enabled()->orderBy('created_at')->get();
         $pireps = Pirep::query()->belongsTo($this->account->id)->count();
 
-        return view('fte.dashboard')
+        return $this->viewMake('fte.dashboard')
             ->with('exercises', $exercises)
             ->with('pireps', $pireps);
     }
@@ -35,7 +35,7 @@ class SmartcarsController extends BaseController
         if (is_null($exercise)) {
             $exercises = Flight::enabled()->orderBy('created_at')->get();
 
-            return view('fte.exercises')->with('exercises', $exercises);
+            return $this->viewMake('fte.exercises')->with('exercises', $exercises);
         } else {
             $this->authorize('bid', $exercise);
 
