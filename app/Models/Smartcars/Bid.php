@@ -79,7 +79,7 @@ class Bid extends Model
     public function scopePassed($query)
     {
         return $query->whereHas('pirep', function ($q) {
-           $q->whereNull('failed_at');
+            $q->whereNull('failed_at');
         });
     }
 
