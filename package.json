@@ -21,10 +21,11 @@
     "jquery": "^3.3.1",
     "jquery-datetimepicker": "^2.5.20",
     "jvectormap": "^2.0.4",
-    "laravel-mix": "^1.7.2",
+    "laravel-mix": "^2.1",
     "less": "^2.7.3",
     "less-loader": "^4.1.0",
     "lodash": "^4.17.10",
+    "tailwindcss": "^0.6.5",
     "vue": "^2.5.16"
   }
 }
