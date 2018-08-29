@@ -100,7 +100,7 @@ Route::group(['as' => 'community.membership.', 'namespace' => 'Community', 'midd
 Route::group(['prefix' => 'events/', 'middleware' => ['auth_full_group']], function () {
     Route::get('calendar', 'Events\EventController@showCalendar')->name('events.calendar');
     Route::get('roster', 'Events\EventController@showRoster')->name('events.roster');
-    Route::get('ATC/interest', 'Events\EventController@addATCInterest')->name('events.atc.interest');
+    Route::get('atc/interest', 'Events\EventController@addATCInterest')->name('events.atc.interest');
 });
 
 // Controllers
